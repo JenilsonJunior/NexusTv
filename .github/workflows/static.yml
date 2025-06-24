@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NexusTv - Qualidade e Inovação</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="description" content="NexusTv: Qualidade e Inovação. Mais de 10 MIL canais, filmes e séries em Full HD e 4K. Teste Grátis de 4 horas. Experimente a revolução da TV!">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"></noscript>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX'); // SEU ID DE MEDIÇÃO DO GA4 AQUI
+  </script>
+
+  <style>
+    /* Variáveis CSS para cores e fontes, facilitando a customização */
+    :root {
+      --cor-fundo-principal: #000000; /* Preto sólido para o fundo */
+      --cor-texto-principal: #ffffff; /* Texto branco */
+      --cor-destaque-primaria: #e94560; /* Vermelho vibrante para botões e destaques */
+      --cor-destaque-secundaria: #00c4ff; /* Azul ciano para a logo e subtítulos */
+      --cor-borda-elementos: rgba(255, 255, 255, 0.1); /* Borda sutil para cards */
+      --cor-fundo-card: rgba(255, 255, 255, 0.05); /* Fundo semi-transparente para cards */
+      --transicao-padrao: 0.5s ease-in-out; /* Transição para o slider */
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif; /* Fonte moderna e legível */
+      background-color: var(--cor-fundo-principal);
+      color: var(--cor-texto-principal);
+      overflow: hidden; /* Esconde a barra de rolagem horizontal */
+      height: 100vh; /* Garante que o body ocupe 100% da altura da viewport */
+    }
+
+    /* Contêiner principal que contém todas as "páginas" e desliza */
+    .slider-container {
+      display: flex;
+      width: 400vw; /* AGORA 4 PÁGINAS, cada uma com 100% da largura da viewport */
+      height: 100%; /* Ocupa a altura total do body */
+      transition: transform var(--transicao-padrao); /* Suaviza a transição entre páginas */
+      position: relative; /* Necessário para posicionar botões de navegação lateral */
+    }
+
+    /* Estilo para cada "página" dentro do slider */
+    .slide-page {
+      width: 100vw;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box; /* Garante que padding não aumente a largura */
+      text-align: center;
+      flex-shrink: 0; /* Impede que as páginas encolham */
+      position: relative; /* Necessário para posicionar a imagem de fundo e a logo */
+      overflow: hidden; /* Garante que o conteúdo não vaze */
+    }
+
+    /* Estilos para a barra de navegação superior */
+    .header-nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
+      z-index: 100; /* Garante que fique acima do conteúdo */
+      box-sizing: border-box;
+    }
+
+    .header-nav .logo {
+      width: 120px; /* Tamanho ajustado para a logo */
+      height: auto;
+      object-fit: contain; /* Garante que a imagem se ajuste sem distorção */
+    }
+
+    .header-nav .nav-links a {
+      color: var(--cor-texto-principal);
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 600;
+      transition: color 0.3s ease, border-bottom 0.3s ease;
+    }
+
+    .header-nav .nav-links a:hover,
+    .header-nav .nav-links a.active-nav-link { /* Nova classe para link ativo */
+      color: var(--cor-destaque-primaria);
+      border-bottom: 2px solid var(--cor-destaque-primaria);
+    }
+
+    .header-nav .btn-teste-gratis {
+      background-color: var(--cor-destaque-primaria);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .header-nav .btn-teste-gratis:hover {
+      background-color: #c3344d;
+      transform: translateY(-2px);
+    }
+
+    /* Estilos do botão hamburguer */
+    .hamburger-menu {
+      display: none; /* Esconde por padrão em desktop */
+      font-size: 1.8em;
+      color: var(--cor-texto-principal);
+      cursor: pointer;
+      z-index: 110; /* Acima dos nav links */
+    }
+
+    /* Estilos para o menu mobile (quando ativo) */
+    .header-nav.active .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px; /* Abaixo do header */
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        padding: 20px 0;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        text-align: center;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .header-nav.active .nav-links.show { /* Animação para aparecer */
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .header-nav.active .nav-links a {
+        margin: 10px 0;
+        padding: 10px 0;
+        border-bottom: none; /* Remove borda inferior no mobile */
+    }
+
+    /* Estilos da primeira página (Home) */
+    #home-page {
+      background-color: var(--cor-fundo-principal);
+      /* Otimização de imagem: usar <picture> com WebP se possível */
+      /* background-image: url('fundo_moderno_tv2.webp'); */
+      background-image: url('fundo_moderno_tv2.png');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    /* Sobreposição escura para a imagem de fundo na primeira página */
+    #home-page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 1;
+    }
+
+    /* Logo da NexusTv dentro da home-page */
+    #home-page .nexus-logo-home {
+      width: 250px;
+      height: auto;
+      margin-bottom: 30px;
+      z-index: 2;
+    }
+
+    #home-page h1, #home-page .subtitle, #home-page .main-cta, #home-page .plataformas, #home-page .destaque {
+      z-index: 2;
+      position: relative;
+    }
+
+    #home-page h1 {
+      font-size: 3.8em;
+      margin-bottom: 15px;
+      line-height: 1.1;
+      font-weight: 800;
+      max-width: 90%;
+    }
+
+    #home-page h1 span {
+      color: var(--cor-destaque-secundaria);
+    }
+
+    #home-page .subtitle {
+      font-size: 1.6em;
+      margin-bottom: 50px;
+      font-weight: 400;
+      max-width: 700px;
+      opacity: 0.9;
+    }
+
+    #home-page .main-cta {
+      background-color: var(--cor-destaque-primaria);
+      color: white;
+      padding: 20px 45px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.3em;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 8px 20px rgba(233, 69, 96, 0.6);
+      position: relative;
+    }
+
+    #home-page .main-cta:hover {
+      background-color: #c3344d;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(233, 69, 96, 0.8);
+    }
+
+    /* Estilos dos spans de plataformas para se assemelhar mais aos modelos */
+    .plataformas {
+        display: flex;
+        flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+        justify-content: center;
+        gap: 10px; /* Espaçamento entre os spans */
+        margin-top: 40px;
+        max-width: 800px;
+        width: 100%;
+    }
+    .plataformas span {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .plataformas span:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .destaque {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-left: 5px solid var(--cor-destaque-secundaria);
+      padding: 25px;
+      border-radius: 12px;
+      margin-top: 30px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .destaque p {
+      font-size: 1.5em;
+      margin: 10px 0;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .preco {
+      font-size: 2em;
+      color: #00ff99;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    }
+
+    /* Botões de navegação lateral (setas) */
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 15px;
+      cursor: pointer;
+      font-size: 2em;
+      z-index: 10;
+      opacity: 0.7;
+      transition: opacity 0.3s ease, background-color 0.3s ease;
+      border-radius: 50%; /* Torna o botão redondo */
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-arrow:hover {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .nav-arrow.left {
+      left: 20px;
+    }
+
+    .nav-arrow.right {
+      right: 20px;
+    }
+
+    /* Estilos da segunda página (Descrição) */
+    #description-page {
+      background-color: var(--cor-fundo-principal);
+      /* Otimização de imagem: usar <picture> com WebP se possível */
+      /* background-image: url('fundo_abstrato_tv_otimizado.webp'); */
+      background-image: url('ChatGPT Image 24 de jun. de 2025, 11_52_55.png');
+      background-size: cover;
+      background-position: center;
+      justify-content: flex-start;
+      padding-top: 100px;
+    }
+
+    #description-page::before { /* Adicionado overlay para consistência com home-page */
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6); /* Overlay sutil */
+      z-index: 0; /* Abaixo do conteúdo */
+    }
+
+    #description-page h2 {
+      font-size: 2.8em;
+      margin-bottom: 40px;
+      color: var(--cor-destaque-secundaria);
+      font-weight: 700;
+      z-index: 1; /* Acima do overlay */
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      width: 90%;
+      margin-top: 30px;
+      z-index: 1; /* Acima do overlay */
+    }
+
+    .info-card {
+      background-color: var(--cor-fundo-card);
+      border: 1px solid var(--cor-borda-elementos);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .info-card h3 {
+      color: var(--cor-destaque-primaria);
+      font-size: 1.4em;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .info-card p {
+      font-size: 1em;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .info-card .btn-card {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: var(--cor-destaque-primaria);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.95em;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .info-card .btn-card:hover {
+      background-color: #c3344d;
+      transform: translateY(-2px);
+    }
+
+    /* Nova seção para Depoimentos (inspirado no modelo 2/6) */
+    .testimonials-section {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 50px 20px;
+      width: 100%;
+      max-width: 1100px;
+      margin-top: 50px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+      z-index: 1; /* Acima do overlay */
+    }
+
+    .testimonials-section h2 {
+      font-size: 2.5em;
+      color: var(--cor-destaque-primaria);
+      margin-bottom: 40px;
+      font-weight: 700;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .testimonial-card {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 25px;
+      text-align: left;
+      font-size: 0.95em;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .testimonial-card .author {
+      font-weight: 600;
+      color: var(--cor-destaque-secundaria);
+      margin-top: 15px;
+      display: block;
+    }
+
+    /* Estilos da TERCEIRA página: Contatos e Download (Agora separada da FAQ) */
+    #contact-page {
+      background-color: var(--cor-fundo-principal);
+      /* Otimização de imagem: usar <picture> com WebP se possível */
+      /* background-image: url('fundo_abstrato_tv_otimizado.webp'); */
+      background-image: url('ChatGPT Image 24 de jun. de 2025, 11_52_55.png');
+      background-size: cover;
+      background-position: center;
+      justify-content: center; /* Centraliza verticalmente */
+    }
+
+    #contact-page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    #contact-page h2 {
+      font-size: 2.8em;
+      margin-bottom: 50px;
+      color: var(--cor-destaque-secundaria);
+      font-weight: 700;
+      z-index: 1;
+    }
+    #contact-page .subtitle {
+        z-index: 1;
+        position: relative;
+    }
+
+    /* Centraliza os botões dentro do seu contêiner */
+    .contact-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      max-width: 450px;
+      width: 90%;
+      z-index: 1;
+      margin: 0 auto; /* Centraliza o bloco de botões horizontalmente */
+    }
+
+    .contact-buttons a {
+      background-color: var(--cor-destaque-primaria);
+      color: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.3em;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Centraliza o ícone e texto do botão */
+      gap: 15px;
+      box-shadow: 0 6px 12px rgba(233, 69, 96, 0.3);
+    }
+
+    .contact-buttons a:hover {
+      background-color: #c3344d;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(233, 69, 96, 0.5);
+    }
+
+    .contact-buttons a i {
+      font-size: 1.5em;
+    }
+
+    /* Estilos da QUARTA página: FAQ */
+    #faq-page {
+        background-color: var(--cor-fundo-principal);
+        /* Otimização de imagem: usar <picture> com WebP se possível */
+        /* background-image: url('fundo_abstrato_tv_otimizado.webp'); */
+        background-image: url('ChatGPT Image 24 de jun. de 2025, 11_52_55.png');
+        background-size: cover;
+        background-position: center;
+        justify-content: flex-start; /* Alinha o conteúdo ao topo */
+        padding-top: 100px; /* Espaço para o cabeçalho */
+        overflow-y: auto; /* Permite rolagem dentro desta página se o conteúdo for longo */
+    }
+
+    #faq-page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 0;
+    }
+
+    .faq-section {
+        background-color: rgba(255, 255, 255, 0.08);
+        padding: 50px 20px;
+        width: 100%;
+        max-width: 900px;
+        margin-top: 50px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        z-index: 1; /* Acima do overlay */
+    }
+
+    .faq-section h2 {
+        font-size: 2.5em;
+        color: var(--cor-destaque-secundaria);
+        margin-bottom: 40px;
+        font-weight: 700;
+    }
+
+    .faq-item {
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+
+    .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 25px;
+        font-size: 1.1em;
+        font-weight: 600;
+        cursor: pointer;
+        color: var(--cor-texto-principal);
+        transition: background-color 0.3s ease;
+    }
+
+    .faq-question:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .faq-question .icon {
+        font-size: 1.2em;
+        transition: transform 0.3s ease;
+    }
+
+    .faq-question.active .icon {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        padding: 0 25px 20px;
+        font-size: 1em;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+        max-height: 0; /* Começa oculto */
+        overflow: hidden;
+        transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 200px; /* Altura máxima para mostrar o conteúdo */
+        padding: 10px 25px 20px; /* Ajusta padding quando ativo */
+    }
+
+    /* Navegação dos pontos inferiores (dots) */
+    .dots-navigation {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 101;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: var(--cor-destaque-primaria);
+      transform: scale(1.3);
+    }
+
+    /* Rodapé */
+    .rodape {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      font-size: 0.9em;
+      color: #cccccc;
+      padding: 15px 20px;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 99;
+      box-sizing: border-box;
+    }
+
+    /* Media Queries para Responsividade */
+    @media (max-width: 768px) {
+      .header-nav {
+        padding: 15px 20px;
+      }
+      .header-nav .nav-links {
+        display: none; /* Esconde os links de navegação em mobile por padrão */
+      }
+      .header-nav .logo {
+        width: 100px;
+      }
+      .header-nav .btn-teste-gratis {
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+
+      .hamburger-menu {
+        display: block; /* Mostra o hamburguer em mobile */
+      }
+
+      #home-page .nexus-logo-home {
+        width: 180px;
+        margin-bottom: 20px;
+      }
+      #home-page h1 {
+        font-size: 2.8em;
+      }
+      #home-page .subtitle {
+        font-size: 1.3em;
+        margin-bottom: 30px;
+      }
+      #home-page .main-cta {
+        padding: 16px 35px;
+        font-size: 1.1em;
+      }
+      
+      .plataformas span {
+        font-size: 0.9em; /* Levemente maior para melhor legibilidade */
+        padding: 8px 14px;
+      }
+      .destaque {
+        padding: 18px;
+      }
+      .destaque p {
+        font-size: 1.2em;
+      }
+      .preco {
+        font-size: 1.6em;
+      }
+
+      .nav-arrow { /* Esconde as setas de navegação lateral em mobile */
+          display: none;
+      }
+
+      #description-page h2, #contact-page h2, #faq-page h2 {
+        font-size: 2.2em;
+        margin-bottom: 30px;
+      }
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        width: 95%;
+      }
+      .info-card {
+        padding: 25px;
+      }
+
+      .testimonials-section {
+        padding: 30px 15px;
+        margin-top: 30px;
+      }
+      .testimonials-section h2 {
+        font-size: 2em;
+        margin-bottom: 25px;
+      }
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+      .testimonial-card {
+        padding: 20px;
+      }
+
+      .contact-buttons {
+        gap: 20px;
+        width: 95%;
+      }
+      .contact-buttons a {
+        padding: 16px 25px;
+        font-size: 1.1em;
+      }
+      .contact-buttons a i {
+        font-size: 1.3em;
+      }
+
+      .dots-navigation {
+        bottom: 15px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+      }
+
+      .faq-section {
+          padding: 30px 15px;
+          margin-top: 30px;
+      }
+      .faq-section h2 {
+          font-size: 2em;
+          margin-bottom: 25px;
+      }
+      .faq-question {
+          font-size: 1em;
+          padding: 15px 20px;
+      }
+      .faq-answer {
+          padding: 0 20px 15px;
+      }
+      .faq-item.active .faq-answer {
+        padding: 10px 20px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #home-page h1 {
+        font-size: 2em;
+      }
+      #home-page .subtitle {
+        font-size: 1em;
+      }
+      #home-page .main-cta {
+        padding: 14px 28px;
+        font-size: 0.95em;
+      }
+      #description-page h2, #contact-page h2, #faq-page h2 {
+        font-size: 1.8em;
+      }
+      .info-card h3 {
+        font-size: 1.2em;
+      }
+      .info-card p {
+        font-size: 0.9em;
+      }
+      .contact-buttons a {
+        font-size: 1em;
+        padding: 14px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header-nav" id="headerNav">
+    <picture>
+      <source srcset="logo_nexus_tv.webp" type="image/webp">
+      <img src="logo_nexus_tv.png" alt="Logo NexusTv" class="logo" id="logoHeader">
+    </picture>
+    <div class="hamburger-menu" id="hamburgerMenu" role="button" aria-label="Abrir menu de navegação">
+        <i class="fas fa-bars"></i>
+    </div>
+    <nav class="nav-links">
+      <a href="#" data-page-index="0" data-ga-event="nav_click_home">Home</a>
+      <a href="#" data-page-index="1" data-ga-event="nav_click_sobre">Sobre</a>
+      <a href="#" data-page-index="2" data-ga-event="nav_click_contato">Contato</a>
+      <a href="#" data-page-index="3" data-ga-event="nav_click_faq">FAQ</a> </nav>
+    <a href="https://wa.me/558287613794" class="btn-teste-gratis" data-ga-event="click_teste_gratis_header">TESTE GRÁTIS</a>
+  </header>
+
+  <div class="slider-container" id="sliderContainer">
+    <button class="nav-arrow left" id="prevPageBtn" aria-label="Página anterior"><i class="fas fa-chevron-left"></i></button>
+    <button class="nav-arrow right" id="nextPageBtn" aria-label="Próxima página"><i class="fas fa-chevron-right"></i></button>
+
+    <section class="slide-page" id="home-page">
+      <picture>
+        <source srcset="logo_nexus_tv.webp" type="image/webp">
+        <img src="logo_nexus_tv.png" alt="Logo NexusTv" class="nexus-logo-home" id="nexusLogoHome">
+      </picture>
+
+      <h1>Quer qualidade?<br>Então tome <span>NexusTv</span></h1>
+      <p class="subtitle">Senhoras e Senhores, chegamos pra revolucionar a forma de assistir TV.</p>
+      <a href="https://wa.me/558287613794" class="main-cta" data-ga-event="click_experimente_agora">EXPERIMENTE AGORA!</a>
+
+      <div class="plataformas">
+        <span>NETFLIX</span>
+        <span>globoplay</span>
+        <span>PREMIERE</span>
+        <span>ESPN</span>
+        <span>Disney+</span>
+        <span>Paramount</span>
+        <span>SPOTIFY</span>
+        <span>HBOMAX</span>
+        <span>telecine</span>
+      </div>
+
+      <div class="destaque">
+        <p><strong>+ de 10 MIL</strong> canais, filmes, séries, jogos e esportes ao vivo!</p>
+        <p class="preco">Por apenas R$ 27,90/mês</p>
+      </div>
+
+    </section>
+
+    <section class="slide-page" id="description-page">
+      <h2>O que é a NexusTv?</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Conteúdo Ilimitado</h3>
+          <p>Com a NexusTv, você tem acesso a mais de 10 MIL conteúdos, incluindo os últimos lançamentos de filmes, séries completas, canais ao vivo, animes, desenhos, novelas e todos os seus canais premium favoritos, como Premiere, HBO, Telecine, Netflix, Amazon Prime Video, Disney+, Star+, e muito mais. Desfrute de qualidade em Full HD e 4K!</p>
+          <a href="https://wa.me/558287613794" class="btn-card" data-ga-event="click_saiba_mais_conteudo">SAIBA MAIS</a>
+        </div>
+        <div class="info-card">
+          <h3>Compatibilidade Total</h3>
+          <p>Assista em qualquer lugar! Nossa plataforma é compatível com uma vasta gama de dispositivos: celulares, tablets, Smart TVs (Samsung, LG, Sony), TV Box, notebooks, computadores, consoles de videogame (PS4, PS5, Xbox One, Xbox Series X/S) e Chromecast. A diversão te acompanha aonde você for.</p>
+          <a href="https://wa.me/558287613794" class="btn-card" data-ga-event="click_ver_dispositivos">VER DISPOSITIVOS</a>
+        </div>
+        <div class="info-card">
+          <h3>Teste Grátis de 4 Horas</h3>
+          <p>Quer experimentar a revolução da TV? Preencha um breve formulário e receba acesso instantâneo ao nosso sistema completo, com todos os canais e conteúdos, sem compromisso. Teste a qualidade NexusTv por 4 horas e descubra o entretenimento que você merece.</p>
+          <a href="https://wa.me/558287613794" class="btn-card" data-ga-event="click_solicitar_teste">SOLICITAR TESTE</a>
+        </div>
+      </div>
+
+      <div class="testimonials-section">
+        <h2>O que dizem de nós?</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            "Excelente! Realmente cumpre o que promete. Ótima qualidade de imagem e som, muitos canais e uma vasta plataforma e filmes e séries para maratonar."
+            <span class="author">- Daniel Carvalho</span>
+          </div>
+          <div class="testimonial-card">
+            "Comprei e a imagem e top e o som tbm tá excelente!!! A tv box da minha sala já funciona perfeitamente, já virei cliente."
+            <span class="author">- Leandro Moraes</span>
+          </div>
+          <div class="testimonial-card">
+            "Um serviço de excelência e diversidade, pena que o atendimento de suporte é apenas 100% online."
+            <span class="author">- Fernando Eduardo</span>
+          </div>
+          <div class="testimonial-card">
+            "Estou muito satisfeito com o serviço. É realmente a revolução do entretenimento."
+            <span class="author">- Ana Paula</span>
+          </div>
+        </div>
+        <a href="https://wa.me/558287613794" class="btn-teste-gratis" style="margin-top: 30px; display: inline-block;" data-ga-event="click_fale_conosco_depoimentos">FALE CONOSCO PARA MAIS DEPOIMENTOS!</a>
+      </div>
+
+    </section>
+
+    <section class="slide-page" id="contact-page">
+      <h2>Pronto para começar?</h2>
+      <p class="subtitle" style="font-size: 1.2em; margin-bottom: 30px; opacity: 0.9;">Escolha como você quer dar o próximo passo para uma nova experiência de TV.</p>
+      <div class="contact-buttons">
+        <a href=" https://play.google.com/store/apps/details?id=com.loja.smart" data-ga-event="click_baixe_app">
+          <i class="fas fa-mobile-alt"></i>
+          BAIXE O APP
+        </a>
+        <a href="https://wa.me/558287613794" target="_blank" data-ga-event="click_whatsapp_contato">
+          <i class="fab fa-whatsapp"></i>
+          FALE CONOSCO NO WHATSAPP
+        </a>
+      </div>
+      <p style="margin-top: 30px; font-size: 1em; opacity: 0.7;">Assine agora e viva essa experiência como nunca antes!</p>
+    </section>
+
+    <section class="slide-page" id="faq-page">
+      <div class="faq-section">
+          <h2>Perguntas Frequentes</h2>
+          <div class="faq-item">
+              <div class="faq-question">
+                  Quanto custa a NexusTv?
+                  <i class="fas fa-chevron-down icon"></i>
+              </div>
+              <div class="faq-answer">
+                  <p>A NexusTv oferece planos a partir de R$ 27,90 por mês, com acesso a mais de 10 mil conteúdos, incluindo canais, filmes e séries. Consulte nossos representantes para planos personalizados.</p>
+              </div>
+          </div>
+          <div class="faq-item">
+              <div class="faq-question">
+                  Quais dispositivos são compatíveis?
+                  <i class="fas fa-chevron-down icon"></i>
+              </div>
+              <div class="faq-answer">
+                  <p>Nossa plataforma é compatível com uma vasta gama de dispositivos, incluindo celulares, tablets, Smart TVs (Samsung, LG, Sony), TV Box, notebooks, computadores, consoles de videogame (PS4, PS5, Xbox One, Xbox Series X/S) e Chromecast.</p>
+              </div>
+          </div>
+          <div class="faq-item">
+              <div class="faq-question">
+                  Posso assistir em mais de uma tela ao mesmo tempo?
+                  <i class="fas fa-chevron-down icon"></i>
+              </div>
+              <div class="faq-answer">
+                  <p>Sim, a NexusTv oferece a possibilidade de assistir em múltiplas telas simultaneamente, dependendo do plano contratado. Consulte as condições específicas com nossa equipe.</p>
+              </div>
+          </div>
+          <div class="faq-item">
+              <div class="faq-question">
+                  Como funciona o teste grátis?
+                  <i class="fas fa-chevron-down icon"></i>
+              </div>
+              <div class="faq-answer">
+                  <p>Você pode solicitar um teste grátis de 4 horas diretamente pelo nosso WhatsApp. Após um breve cadastro, você terá acesso completo ao nosso sistema para experimentar a qualidade NexusTv.</p>
+              </div>
+          </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="dots-navigation" id="dotsNavigation">
+    <span class="dot active" data-page="0"></span>
+    <span class="dot" data-page="1"></span>
+    <span class="dot" data-page="2"></span>
+    <span class="dot" data-page="3"></span> </div>
+
+  <div class="rodape">
+    &copy; 2025 NexusTv. Todos os direitos reservados.
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fallback para logos
+      const logoHome = document.getElementById('nexusLogoHome');
+      if (logoHome) {
+        logoHome.addEventListener('error', function() {
+          console.error('Erro ao carregar a logo da Home. Usando placeholder.');
+          this.onerror = null;
+          this.src = 'https://placehold.co/250x120/000000/FFFFFF?text=NexusTv';
+        });
+      }
+      const logoHeader = document.getElementById('logoHeader');
+      if (logoHeader) {
+        logoHeader.addEventListener('error', function() {
+          console.error('Erro ao carregar a logo do Header. Usando placeholder.');
+          this.onerror = null;
+          this.src = 'https://placehold.co/120x60/000000/FFFFFF?text=NexusTv';
+        });
+      }
+
+      const slider = document.getElementById('sliderContainer');
+      const dotsContainer = document.getElementById('dotsNavigation');
+      const dots = document.querySelectorAll('.dot');
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const headerNav = document.getElementById('headerNav');
+      const hamburgerMenu = document.getElementById('hamburgerMenu');
+      const prevPageBtn = document.getElementById('prevPageBtn');
+      const nextPageBtn = document.getElementById('nextPageBtn');
+
+      // ATUALIZADO: totalPages agora é 4
+      let currentPage = 0;
+      const totalPages = 4; // Atualizado para 4 páginas
+
+      // Função para enviar eventos para o Google Analytics
+      function sendGAEvent(eventName, eventParams = {}) {
+        if (typeof gtag === 'function') {
+          gtag('event', eventName, eventParams);
+        } else {
+          console.warn('gtag não está definido. Google Analytics pode não estar carregado.');
+        }
+      }
+
+      function goToPage(pageIndex) {
+        if (pageIndex >= 0 && pageIndex < totalPages) {
+          slider.style.transform = `translateX(-${pageIndex * 100}vw)`;
+          updateDots(pageIndex);
+          updateNavLinks(pageIndex);
+          currentPage = pageIndex;
+          // Fecha o menu hamburguer se estiver aberto
+          if (headerNav.classList.contains('active')) {
+            headerNav.classList.remove('active');
+            headerNav.querySelector('.nav-links').classList.remove('show');
+          }
+          sendGAEvent('page_view_slider', { page_index: pageIndex });
+        }
+      }
+
+      function updateDots(activePage) {
+        dots.forEach((dot, index) => {
+          if (index === activePage) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      function updateNavLinks(activePage) {
+        navLinks.forEach((link, index) => {
+          if (parseInt(link.dataset.pageIndex) === activePage) { // Usa dataset.pageIndex para verificar
+            link.classList.add('active-nav-link');
+          } else {
+            link.classList.remove('active-nav-link');
+          }
+        });
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const pageIndex = parseInt(dot.dataset.page);
+          goToPage(pageIndex);
+          sendGAEvent('dot_navigation_click', { target_page: pageIndex });
+        });
+      });
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const pageIndex = parseInt(link.dataset.pageIndex);
+          if (!isNaN(pageIndex)) {
+            goToPage(pageIndex);
+            // Captura o evento GA do atributo data-ga-event
+            const gaEvent = link.dataset.gaEvent;
+            if (gaEvent) {
+              sendGAEvent(gaEvent, { link_text: link.textContent.trim() });
+            }
+          }
+        });
+      });
+
+      // Captura cliques nos CTAs para o Google Analytics
+      document.querySelectorAll('[data-ga-event]').forEach(btn => {
+          btn.addEventListener('click', function() {
+              const eventName = this.dataset.gaEvent;
+              sendGAEvent(eventName, { button_text: this.textContent.trim() });
+          });
+      });
+
+
+      // Funcionalidade do menu hamburguer
+      hamburgerMenu.addEventListener('click', () => {
+        headerNav.classList.toggle('active');
+        headerNav.querySelector('.nav-links').classList.toggle('show');
+        sendGAEvent('hamburger_menu_toggle', { status: headerNav.classList.contains('active') ? 'opened' : 'closed' });
+      });
+
+      // Navegação pelas setas laterais
+      prevPageBtn.addEventListener('click', () => {
+        goToPage(currentPage - 1);
+        sendGAEvent('arrow_navigation_click', { direction: 'prev' });
+      });
+
+      nextPageBtn.addEventListener('click', () => {
+        goToPage(currentPage + 1);
+        sendGAEvent('arrow_navigation_click', { direction: 'next' });
+      });
+
+      // Implementação de navegação por swipe (toque)
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      slider.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+      });
+
+      slider.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        handleSwipe();
+      });
+
+      function handleSwipe() {
+        const swipeThreshold = 75;
+        if (touchEndX < touchStartX - swipeThreshold) {
+          goToPage(currentPage + 1);
+          sendGAEvent('swipe_navigation', { direction: 'left_to_right' });
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+          goToPage(currentPage - 1);
+          sendGAEvent('swipe_navigation', { direction: 'right_to_left' });
+        }
+      }
+
+      // Navegação via teclas de seta (desktop)
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          goToPage(currentPage + 1);
+          sendGAEvent('keyboard_navigation', { direction: 'right_arrow' });
+        } else if (e.key === 'ArrowLeft') {
+          goToPage(currentPage - 1);
+          sendGAEvent('keyboard_navigation', { direction: 'left_arrow' });
+        }
+      });
+
+      // Funcionalidade do FAQ (Acordeão)
+      document.querySelectorAll('.faq-question').forEach(question => {
+          question.addEventListener('click', () => {
+              const parentItem = question.closest('.faq-item');
+              const answer = parentItem.querySelector('.faq-answer');
+              const isActive = parentItem.classList.contains('active');
+
+              // Fecha todos os outros itens FAQ abertos
+              document.querySelectorAll('.faq-item.active').forEach(openItem => {
+                  if (openItem !== parentItem) {
+                      openItem.classList.remove('active');
+                      openItem.querySelector('.faq-answer').style.maxHeight = '0';
+                      openItem.querySelector('.faq-answer').style.padding = '0 25px 20px'; // Reseta padding
+                  }
+              });
+
+              // Abre ou fecha o item clicado
+              if (isActive) {
+                  parentItem.classList.remove('active');
+                  answer.style.maxHeight = '0';
+                  answer.style.padding = '0 25px 20px'; // Reseta padding
+                  sendGAEvent('faq_interaction', { question: question.textContent.trim(), action: 'closed' });
+              } else {
+                  parentItem.classList.add('active');
+                  answer.style.maxHeight = answer.scrollHeight + 'px'; // Ajusta altura para o conteúdo
+                  answer.style.padding = '10px 25px 20px'; // Ajusta padding quando aberto
+                  sendGAEvent('faq_interaction', { question: question.textContent.trim(), action: 'opened' });
+              }
+          });
+      });
+
+      // Inicializa os dots e links na carga da página
+      goToPage(0); // Garante que a primeira página e seus indicadores estejam ativos ao carregar
+    });
+  </script>
+
+</body>
+</html>
